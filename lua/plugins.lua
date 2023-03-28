@@ -58,12 +58,14 @@ packer.startup({
 
 
     -------------------------- 插件集合 -------------------------------------------
+
     -- nvim-tree, 提供左边的文件树
     use({
       "kyazdani42/nvim-tree.lua",
       requires = "kyazdani42/nvim-web-devicons",
     })
     -- bufferline
+    --  vim-bbye 依赖，因为这个插件安装后会增加一个 :Bdelete 命令，相比内置的 :bdelete, 它删除 buffer 的同时，并不会搞乱布局 。 待会儿我们会配置 Bdelete 为关闭 Tab 的命令。
     use({
       "akinsho/bufferline.nvim",
       requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
@@ -89,7 +91,6 @@ packer.startup({
     use("ahmedkhalf/project.nvim")
 
 
-
     ------------------------ 启动界面 -------------------------------------------
     -- dashboard-nvim,功能实现关联ahmedkhalf/project.nvim
     use({
@@ -98,77 +99,43 @@ packer.startup({
     })
 
 
-
+    ----------------------- 代码高亮 --------------------------------------------
     -- treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
     })
     use("p00f/nvim-ts-rainbow")
-    -- indent-blankline
-    use("lukas-reineke/indent-blankline.nvim")
-    --------------------- LSP --------------------
-    -- use({ "williamboman/nvim-lsp-installer", commit = "36b44679f7cc73968dbb3b09246798a19f7c14e0" })
-    use({ "williamboman/nvim-lsp-installer" })
-    -- Lspconfig
-    use({ "neovim/nvim-lspconfig" })
-    -- 补全引擎
-    use("hrsh7th/nvim-cmp")
-    -- Snippet 引擎
-    use("hrsh7th/vim-vsnip")
-    -- 补全源
-    use("hrsh7th/cmp-vsnip")
-    use("hrsh7th/cmp-nvim-lsp") -- { name = nvim_lsp }
-    use("hrsh7th/cmp-buffer") -- { name = 'buffer' },
-    use("hrsh7th/cmp-path") -- { name = 'path' }
-    use("hrsh7th/cmp-cmdline") -- { name = 'cmdline' }
-    use("hrsh7th/cmp-nvim-lsp-signature-help") -- { name = 'nvim_lsp_signature_help' }
-    -- 常见编程语言代码段
-    use("rafamadriz/friendly-snippets")
-    -- UI 增强
-    use("onsails/lspkind-nvim")
-    use("tami5/lspsaga.nvim")
-    -- 代码格式化
-    use("mhartington/formatter.nvim")
-    use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
-    -- TypeScript 增强
-    use({ "jose-elias-alvarez/nvim-lsp-ts-utils", requires = "nvim-lua/plenary.nvim" })
-    -- Lua 增强
-    use("folke/lua-dev.nvim")
-    -- JSON 增强
-    use("b0o/schemastore.nvim")
-    -- Rust 增强
-    use("simrat39/rust-tools.nvim")
 
-    -------------------------------------------------------
-    use({ "akinsho/toggleterm.nvim" })
-    -- surround
-    use("ur4ltz/surround.nvim")
-    -- Comment
-    use("numToStr/Comment.nvim")
+    ----------------------- 括号自动补充 --------------------------------------------
     -- nvim-autopairs
     use("windwp/nvim-autopairs")
-    -- git
-    use({ "lewis6991/gitsigns.nvim" })
-    -- vimspector
-    use("puremourning/vimspector")
-    ----------------------------------------------
-    use("mfussenegger/nvim-dap")
-    use("theHamsta/nvim-dap-virtual-text")
-    use("rcarriga/nvim-dap-ui")
-    -- use("Pocco81/DAPInstall.nvim")
-    -- use("jbyuki/one-small-step-for-vimkind")
 
-    use("j-hui/fidget.nvim")
+    ----------------------- 代码注释插件 --------------------------------------------
+    -- Comment
+    use("numToStr/Comment.nvim")
+
+    ----------------------- 缩进之间插入空白线 --------------------------------------------
+    -- indent-blankline
+    use("lukas-reineke/indent-blankline.nvim")
+
+    ----------------------- 快速修改包含或者删除一个字符 --------------------------------------------
+    -- surround
+    use("ur4ltz/surround.nvim")
+
+    ----------------------- 终端插件 --------------------------------------------
+    use({ "akinsho/toggleterm.nvim" })
+
+
     if paccker_bootstrap then
       packer.sync()
     end
   end,
   config = {
     -- 锁定插件版本在snapshots目录
-    snapshot_path = require("packer.util").join_paths(vim.fn.stdpath("config"), "snapshots"),
+    -- snapshot_path = require("packer.util").join_paths(vim.fn.stdpath("config"), "snapshots"),
     -- 这里锁定插件版本在v1，不会继续更新插件
-    snapshot = "v1",
+    -- snapshot = "v1",
 
     -- 最大并发数
     max_jobs = 16,
@@ -179,12 +146,12 @@ packer.startup({
       -- default_url_format = "https://gitcode.net/mirrors/%s",
       -- default_url_format = "https://gitclone.com/github.com/%s",
     },
-    -- display = {
+    display = {
     -- 使用浮动窗口显示
-    --   open_fn = function()
-    --     return require("packer.util").float({ border = "single" })
-    --   end,
-    -- },
+      open_fn = function()
+        return require("packer.util").float({ border = "single" })
+      end,
+    },
   },
 })
 

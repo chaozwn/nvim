@@ -37,3 +37,30 @@ autocmd("BufWritePost", {
     end
   end,
 })
+
+
+-- 进入Terminal 自动进入插入模式
+autocmd("TermOpen", {
+  group = myAutoGroup,
+  command = "startinsert",
+})
+
+-- Highlight on yank
+autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = myAutoGroup,
+  pattern = "*",
+})
+
+-- 用o换行不要延续注释
+autocmd("BufEnter", {
+  group = myAutoGroup,
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions = vim.opt.formatoptions
+      - "o" -- O and o, don't continue comments
+      + "r" -- But do continue when pressing enter.
+  end,
+})

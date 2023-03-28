@@ -208,4 +208,38 @@ pluginKeys.telescopeList = {
   },
 }
 
+
+-- 代码注释插件
+-- see ./lua/plugin-config/comment.lua
+-- 禁用item2的find cursor
+-- defaults write com.googlecode.iterm2 NSUserKeyEquivalents -dict-add "Find Cursor" nil
+pluginKeys.comment = {
+  -- Normal 模式快捷键
+  toggler = {
+    line = "gcc", -- 行注释
+    block = "gbc", -- 块注释
+  },
+  -- Visual 模式
+  opleader = {
+    line = "gc",
+    bock = "gb",
+  },
+}
+-- ctrl + / 替换原来的gcc
+map("n", "<C-/>", "gcc", { noremap = false })
+map("v", "<C-/>", "gcc", { noremap = false })
+
+-- 自定义 toggleterm 3个不同类型的命令行窗口
+-- <leader>ta 浮动
+-- <leader>tb 右侧
+-- <leader>tc 下方
+-- 特殊lazygit 窗口，需要安装lazygit
+-- <leader>tg lazygit
+pluginKeys.mapToggleTerm = function(toggleterm)
+  vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
+  vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
+  vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
+  vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
+end
+
 return pluginKeys

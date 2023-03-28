@@ -24,3 +24,23 @@ require("plugin-config.telescope")
 -- 引入dashboard，同时关联project
 require("plugin-config.dashboard")
 require("plugin-config.project")
+
+-- 引入代码高亮
+require('plugin-config.nvim-treesitter')
+
+-- 缩进美化
+require("plugin-config.indent-blankline")
+
+-- 引入代码注释插件
+require('plugin-config.comment')
+
+-- 包含符号快速替换
+require("plugin-config.surround")
+
+-- 括号自动补全
+require("plugin-config.nvim-autopairs")
+
+-- 终端插件
+require("plugin-config.toggleterm")
+
+
