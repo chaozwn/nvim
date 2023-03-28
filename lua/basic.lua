@@ -5,7 +5,7 @@
 -- vim.bo.{option}: 缓冲区属性,我们可以利用buffer-option来记忆 
 -- vim.wo.{option}: 窗口属性,我们可以利用window-option来记忆 
 -- utf-8
-vim.g.encoding = "UTF-8"
+vim.g.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
 
 -- hjkl 移动时光标周围保留8行,这边我不需要,我使用zz,zt,zb来控制窗口

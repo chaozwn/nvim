@@ -102,6 +102,9 @@ map("n", "<leader>j", "<C-w>j", opt)
 map("n", "<leader>k", "<C-w>k", opt)
 map("n", "<leader>l", "<C-w>l", opt)
 
+-- 关闭搜索高亮
+map('n', '<leader>nh', ':nohlsearch<CR>', opt)
+
 -- 左右比例控制
 -- map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
 -- map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
@@ -116,19 +119,19 @@ map("n", "sk", ":resize -10<CR>", opt)
 map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
-map("n", "st", ":sp | terminal<CR>", opt)
-map("n", "stv", ":vsp | terminal<CR>", opt)
+-- map("n", "st", ":sp | terminal<CR>", opt)
+-- map("n", "stv", ":vsp | terminal<CR>", opt)
 
 -- Esc 回 Normal 模式 ?? 目前不生效
-map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<leader>j", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
+-- map("t", "<Esc>", "<C-\\><C-n>", opt)
+-- map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
+-- map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
+-- map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
+-- map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
+-- map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
+-- map("t", "<leader>j", [[ <C-\><C-N><C-w>j ]], opt)
+-- map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
+-- map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
 
 -------------------------------------------------------------------------------------
 -- Plugins
@@ -236,10 +239,33 @@ map("v", "<C-/>", "gcc", { noremap = false })
 -- 特殊lazygit 窗口，需要安装lazygit
 -- <leader>tg lazygit
 pluginKeys.mapToggleTerm = function(toggleterm)
-  vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
-  vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
-  vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
-  vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
+  vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleFloat)
+  vim.keymap.set({ "n", "t" }, "<leader>tv", toggleterm.toggleVertical)
+  vim.keymap.set({ "n", "t" }, "<leader>th", toggleterm.toggleHorizontal)
+  vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleGit)
 end
+
+-- vim-visual-multi, 多光标插件
+-- map('n', '<C-S-n>',':SelectAll', opt)
+map('n', '<C-S-k>', ':call vm#commands#add_cursor_up(0, v:count1)<CR>', opt)
+map('n', '<C-S-j>', ":call vm#commands#add_cursor_down(0, v:count1)<CR>", opt)
+
+-- substitute, 交换和替换插件, 寄存器中的值，将会替换到s位置, s{motion}
+vim.keymap.set("n", "s", require('substitute').operator, { noremap = true })
+vim.keymap.set("n", "ss", require('substitute').line, { noremap = true })
+vim.keymap.set("n", "S", require('substitute').eol, { noremap = true })
+vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
+
+-- substitute range, 开启范围性替换，<leader>s{motion}
+vim.keymap.set("n", "<leader>s", require('substitute.range').operator, { noremap = true })
+vim.keymap.set("x", "<leader>s", require('substitute.range').visual, { noremap = true })
+-- 直接对单词生效
+vim.keymap.set("n", "<leader>ss", require('substitute.range').word, { noremap = true })
+
+-- substitute exchange, sx{motion} -> 移动到另外一个单词 sx{motion}
+vim.keymap.set("n", "sx", require('substitute.exchange').operator, { noremap = true })
+vim.keymap.set("n", "sxx", require('substitute.exchange').line, { noremap = true })
+vim.keymap.set("x", "X", require('substitute.exchange').visual, { noremap = true })
+vim.keymap.set("n", "sxc", require('substitute.exchange').cancel, { noremap = true })
 
 return pluginKeys

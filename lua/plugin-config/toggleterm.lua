@@ -44,54 +44,54 @@ local lazygit = Terminal:new({
   end,
 })
 
-local ta = Terminal:new({
+local float = Terminal:new({
   direction = "float",
   close_on_exit = true,
 })
 
-local tb = Terminal:new({
+local vertical = Terminal:new({
   direction = "vertical",
   close_on_exit = true,
 })
 
-local tc = Terminal:new({
+local horizontal = Terminal:new({
   direction = "horizontal",
   close_on_exit = true,
 })
 
 local M = {}
 
-M.toggleA = function()
-  if ta:is_open() then
-    ta:close()
+M.toggleFloat = function()
+  if float:is_open() then
+    float:close()
     return
   end
-  tb:close()
-  tc:close()
-  ta:open()
+  vertical:close()
+  horizontal:close()
+  float:open()
 end
 
-M.toggleB = function()
-  if tb:is_open() then
-    tb:close()
+M.toggleVertical = function()
+  if vertical:is_open() then
+    vertical:close()
     return
   end
-  ta:close()
-  tc:close()
-  tb:open()
+  float:close()
+  horizontal:close()
+  vertical:open()
 end
 
-M.toggleC = function()
-  if tc:is_open() then
-    tc:close()
+M.toggleHorizontal = function()
+  if horizontal:is_open() then
+    horizontal:close()
     return
   end
-  ta:close()
-  tb:close()
-  tc:open()
+  float:close()
+  vertical:close()
+  horizontal:open()
 end
 
-M.toggleG = function()
+M.toggleGit = function()
   lazygit:toggle()
 end
 

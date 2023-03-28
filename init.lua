@@ -43,4 +43,8 @@ require("plugin-config.nvim-autopairs")
 -- 终端插件
 require("plugin-config.toggleterm")
 
+-- 自动保存插件
+require("plugin-config.autosave")
 
+-- 替换和交换插件
+require("plugin-config.substitute")

@@ -111,6 +111,9 @@ packer.startup({
     -- nvim-autopairs
     use("windwp/nvim-autopairs")
 
+    -- 补全引擎
+    use("hrsh7th/nvim-cmp")
+
     ----------------------- 代码注释插件 --------------------------------------------
     -- Comment
     use("numToStr/Comment.nvim")
@@ -126,6 +129,14 @@ packer.startup({
     ----------------------- 终端插件 --------------------------------------------
     use({ "akinsho/toggleterm.nvim" })
 
+    ----------------------- 多光标插件 --------------------------------------------
+    use({ "mg979/vim-visual-multi", branch = 'master' })
+
+    ----------------------- 自动保存 --------------------------------------
+    use("Pocco81/auto-save.nvim")
+
+    ----------------------- 替换和交换插件 --------------------------------
+    use("gbprod/substitute.nvim")
 
     if paccker_bootstrap then
       packer.sync()
@@ -155,14 +166,3 @@ packer.startup({
   },
 })
 
--- 每次保存 plugins.lua 自动安装插件
--- move to autocmds.lua
--- pcall(
---   vim.cmd,
---   [[
--- augroup packer_user_config
--- autocmd!
--- autocmd BufWritePost plugins.lua source <afile> | PackerSync
--- augroup end
--- ]]
--- )
