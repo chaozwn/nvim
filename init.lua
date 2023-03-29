@@ -53,3 +53,6 @@ require("plugin-config.substitute")
 require("plugin-config.leap")
 -- flit，f,t加强插件
 require('plugin-config.flit')
+
+-- coc插件
+require("plugin-config.coc")

@@ -36,6 +36,9 @@ packer.startup({
     -- Packer 可以升级自己
     use("wbthomason/packer.nvim")
 
+    --------------------- 中文help doc ----------------
+    -- 中文help doc
+    use { 'yianwillis/vimcdoc', event = "CmdLineEnter" }
 
     --------------------- 颜色主题 --------------------
     -- tokyonight
@@ -95,7 +98,7 @@ packer.startup({
     -- dashboard-nvim,功能实现关联ahmedkhalf/project.nvim
     use({
       "glepnir/dashboard-nvim",
-      requires = {'nvim-tree/nvim-web-devicons'},
+      requires = { 'nvim-tree/nvim-web-devicons' },
     })
 
 
@@ -124,13 +127,13 @@ packer.startup({
 
     ----------------------- 快速修改包含或者删除一个字符 --------------------------------------------
     -- surround
-    use("ur4ltz/surround.nvim")
+    use({ "kylechui/nvim-surround", tag = "*" })
 
     ----------------------- 终端插件 --------------------------------------------
-    use({"akinsho/toggleterm.nvim"})
+    use({ "akinsho/toggleterm.nvim" })
 
     ----------------------- 多光标插件 --------------------------------------------
-    use({"mg979/vim-visual-multi", branch = 'master'})
+    use({ "mg979/vim-visual-multi", branch = 'master' })
 
     ----------------------- 自动保存 --------------------------------------
     use("Pocco81/auto-save.nvim")
@@ -142,6 +145,8 @@ packer.startup({
     use("ggandor/leap.nvim")
     use("ggandor/flit.nvim")
 
+    ----------------------- 安装coc ---------------------------------------
+    use({ "neoclide/coc.nvim", branch = 'release' })
 
     if paccker_bootstrap then
       packer.sync()
@@ -163,11 +168,10 @@ packer.startup({
       -- default_url_format = "https://gitclone.com/github.com/%s",
     },
     display = {
-    -- 使用浮动窗口显示
+      -- 使用浮动窗口显示
       open_fn = function()
         return require("packer.util").float({ border = "single" })
       end,
     },
   },
 })
-

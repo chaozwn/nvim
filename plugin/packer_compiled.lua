@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
     url = "https://github.com/akinsho/bufferline.nvim"
   },
+  ["coc.nvim"] = {
+    loaded = true,
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/coc.nvim",
+    url = "https://github.com/neoclide/coc.nvim"
+  },
   ["dashboard-nvim"] = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
@@ -149,6 +154,11 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-surround"] = {
+    loaded = true,
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -199,11 +209,6 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/substitute.nvim",
     url = "https://github.com/gbprod/substitute.nvim"
   },
-  ["surround.nvim"] = {
-    loaded = true,
-    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/surround.nvim",
-    url = "https://github.com/ur4ltz/surround.nvim"
-  },
   ["telescope-env.nvim"] = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/telescope-env.nvim",
@@ -238,10 +243,24 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
     url = "https://github.com/mg979/vim-visual-multi"
+  },
+  vimcdoc = {
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/opt/vimcdoc",
+    url = "https://github.com/yianwillis/vimcdoc"
   }
 }
 
 time([[Defining packer_plugins]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au CmdLineEnter * ++once lua require("packer.load")({'vimcdoc'}, { event = "CmdLineEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
