@@ -25,6 +25,15 @@ autocmd("InsertEnter", {
   group = myAutoGroup,
   callback = require("utils.im-select").macInsertEnter,
 })
+-- 当vim获得焦点和失去焦点的时候触发
+autocmd("FocusGained", {
+  group = myAutoGroup,
+  callback = require("utils.im-select").macFocusGained,
+})
+autocmd("FocusLost", {
+  group = myAutoGroup,
+  callback = require("utils.im-select").macFocusLost,
+})
 
 -- 修改lua/plugins.lua 自动更新插件
 -- autocmd("BufWritePost", {

@@ -24,6 +24,7 @@ local opt = {
 
 -- 设置本地变量
 local map = vim.api.nvim_set_keymap
+local G = vim.g
 
 -- $跳到行尾不带空格(交换$和g_)       
 map('v', '$', 'g_', opt)
@@ -106,15 +107,15 @@ map("n", "<leader>l", "<C-w>l", opt)
 map('n', '<leader>nh', ':nohlsearch<CR>', opt)
 
 -- 左右比例控制
--- map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
--- map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
+map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
+map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
 map("n", "s,", ":vertical resize -10<CR>", opt)
 map("n", "s.", ":vertical resize +10<CR>", opt)
 -- 上下比例
 map("n", "sj", ":resize +10<CR>", opt)
 map("n", "sk", ":resize -10<CR>", opt)
--- map("n", "<C-Down>", ":resize +2<CR>", opt)
--- map("n", "<C-Up>", ":resize -2<CR>", opt)
+map("n", "<C-Down>", ":resize +2<CR>", opt)
+map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 相等比例
 map("n", "s=", "<C-w>=", opt)
 
@@ -246,26 +247,45 @@ pluginKeys.mapToggleTerm = function(toggleterm)
 end
 
 -- vim-visual-multi, 多光标插件
--- map('n', '<C-S-n>',':SelectAll', opt)
-map('n', '<C-S-k>', ':call vm#commands#add_cursor_up(0, v:count1)<CR>', opt)
-map('n', '<C-S-j>', ":call vm#commands#add_cursor_down(0, v:count1)<CR>", opt)
+G.VM_maps = {
+  ['Find Under'] = '<C-n>',
+  ['Find Subword Under'] = '<C-n>',
+  ['Add Cursor Up'] = '<C-S-k>',
+  ['Add Cursor Down'] = '<C-S-j>',
+  ['Select All'] = '<C-S-n>'
+}
 
 -- substitute, 交换和替换插件, 寄存器中的值，将会替换到s位置, s{motion}
 vim.keymap.set("n", "s", require('substitute').operator, { noremap = true })
 vim.keymap.set("n", "ss", require('substitute').line, { noremap = true })
 vim.keymap.set("n", "S", require('substitute').eol, { noremap = true })
-vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
+-- 这个和surround插件冲突，所以不使用
+-- vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
 
 -- substitute range, 开启范围性替换，<leader>s{motion}
-vim.keymap.set("n", "<leader>s", require('substitute.range').operator, { noremap = true })
-vim.keymap.set("x", "<leader>s", require('substitute.range').visual, { noremap = true })
+-- vim.keymap.set("n", "<leader>s", require('substitute.range').operator, { noremap = true })
+-- vim.keymap.set("x", "<leader>s", require('substitute.range').visual, { noremap = true })
 -- 直接对单词生效
-vim.keymap.set("n", "<leader>ss", require('substitute.range').word, { noremap = true })
+-- vim.keymap.set("n", "<leader>ss", require('substitute.range').word, { noremap = true })
 
 -- substitute exchange, sx{motion} -> 移动到另外一个单词 sx{motion}
 vim.keymap.set("n", "sx", require('substitute.exchange').operator, { noremap = true })
 vim.keymap.set("n", "sxx", require('substitute.exchange').line, { noremap = true })
 vim.keymap.set("x", "X", require('substitute.exchange').visual, { noremap = true })
 vim.keymap.set("n", "sxc", require('substitute.exchange').cancel, { noremap = true })
+
+-- leap瞬间移动插件
+-- 使用指南
+-- s + xx(two key pattern) + label
+-- 自动跳转到第一个
+-- 如果想要跳转到一行的最后一个位置，用<space>补齐
+-- 多组跳转使用<space>和<tab>进行上下移动
+-- 跳转到下一个搜索单词s<enter>
+-- 默认是使用s和S进行搜索
+-- 窗口跳转搜索gs
+-- 可以和d,y,v,c一起使用
+vim.keymap.set({ "x", "o", "n" }, ";", "<Plug>(leap-forward-to)")
+vim.keymap.set({ "x", "o", "n" }, ",", "<Plug>(leap-backward-to)")
+vim.keymap.set({ "x", "o", "n" }, "<leader>s", "<Plug>(leap-from-window)")
 
 return pluginKeys

@@ -127,16 +127,21 @@ packer.startup({
     use("ur4ltz/surround.nvim")
 
     ----------------------- 终端插件 --------------------------------------------
-    use({ "akinsho/toggleterm.nvim" })
+    use({"akinsho/toggleterm.nvim"})
 
     ----------------------- 多光标插件 --------------------------------------------
-    use({ "mg979/vim-visual-multi", branch = 'master' })
+    use({"mg979/vim-visual-multi", branch = 'master'})
 
     ----------------------- 自动保存 --------------------------------------
     use("Pocco81/auto-save.nvim")
 
     ----------------------- 替换和交换插件 --------------------------------
     use("gbprod/substitute.nvim")
+
+    ----------------------- 移动插件 --------------------------------------
+    use("ggandor/leap.nvim")
+    use("ggandor/flit.nvim")
+
 
     if paccker_bootstrap then
       packer.sync()

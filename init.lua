@@ -48,3 +48,8 @@ require("plugin-config.autosave")
 
 -- 替换和交换插件
 require("plugin-config.substitute")
+
+-- leap瞬间移动插件
+require("plugin-config.leap")
+-- flit，f,t加强插件
+require('plugin-config.flit')

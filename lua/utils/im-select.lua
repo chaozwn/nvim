@@ -1,28 +1,25 @@
 local M = {}
 
--- 添加自己的输入法，可以在term使用im-select查看输入法名字
-local Mac = {}
-Mac.sougou = "com.sogou.inputmethod.sogou.pinyin"
-
+-- 使用这个autocmd的条件是使用mac输入法
+M.sougouIM = "com.sogou.inputmethod.sogou.pinyin"
 M.defaultIM = "com.apple.keylayout.ABC"
-M.currentIM = M.defaultIM
+M.leaveVimIM = M.defaultIM
 
+M.macFocusGained = function() 
+  vim.cmd(":silent :!im-select" .. " " .. M.leaveVimIM)
+end
+
+M.macFocusLost = function()
+  M.leaveVimIM = vim.fn.system({ "im-select" })
+  vim.cmd(":silent :!im-select" .. " " .. M.sougouIM)
+end
 
 M.macInsertLeave = function()
-  M.currentIM = vim.fn.system({ "im-select" })
   vim.cmd(":silent :!im-select" .. " " .. M.defaultIM)
 end
 
 M.macInsertEnter = function()
-  if M.currentIM then
-    if Mac.sougou then
-      vim.cmd(":silent :!im-select" .. " " .. Mac.sougou)
-    else
-      vim.cmd(":silent :!im-select" .. " " .. M.currentIM)
-    end
-  else
-    vim.cmd(":silent :!im-select" .. " " .. M.defaultIM)
-  end
+  vim.cmd(":silent :!im-select" .. " " .. M.sougouIM)
 end
 
 M.windowsInsertLeave = function()
