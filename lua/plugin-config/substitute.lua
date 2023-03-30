@@ -25,3 +25,6 @@ substitute.setup({
     use_esc_to_cancel = true,
   },
 })
+
+require("keybindings").mapSubstitute(substitute)
+require("keybindings").mapSubstituteExchange(require("substitute.exchange"))

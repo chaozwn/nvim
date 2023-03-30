@@ -49,21 +49,21 @@
   "codeLens.enable": true,
   "list.previewHighlightGroup": "Statement",
   // 保存时调整格式
-  "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "typescript",
-    "html",
-    "css",
-    "json",
-    "java",
-    "python",
-    "vue",
-    "c",
-    "cpp",
-    "markdown",
-    "lua",
-    "bash"
-  ],
+  //"coc.preferences.formatOnSaveFiletypes": [
+  //"javascript",
+  //"typescript",
+  //"html",
+  //"css",
+  //"json",
+  //"java",
+  //"python",
+  //"vue",
+  //"c",
+  //"cpp",
+  //"markdown",
+  //"lua",
+  //"bash"
+  //],
   "snippets.ultisnips.directories": [
     "$HOME/.vim/plugged/vim-snippets/UltiSnips"
   ],

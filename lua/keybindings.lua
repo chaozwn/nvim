@@ -1,9 +1,6 @@
 -- n Normal 模式
--- i Insert 模式
 -- v Visual 模式
--- t Terminal 模式
--- c Command 模式
--- 普通模式 (normal mode)
+-- t Terminal 模式 c Command 模式 普通模式 (normal mode)
 -- 移动光标、切换模式都是在普通模式下进行的
 -- 插入模式 (insert mode)
 -- 插入模式主要用来编辑文本，在该模式下可以进行文本的编辑操作
@@ -194,8 +191,8 @@ pluginKeys.nvimTreeList = { -- 打开文件或文件夹
 -- bufferline, Tabs标签页相关配置
 G.map({
   -- 左右Tab切换
-  { "n", "<C-S-h>",    ":BufferLineCyclePrev<CR>",                          opt },
-  { "n", "<C-S-l>",    ":BufferLineCycleNext<CR>",                          opt },
+  { "n", "<C-H>",    ":BufferLineCyclePrev<CR>",                          opt },
+  { "n", "<C-L>",    ":BufferLineCycleNext<CR>",                          opt },
   -- "moll/vim-bbye" 关闭当前 buffer
   { "n", "<leader>bc", ":Bdelete!<CR>",                                     opt },
   { "n", "<C-w>",      ":Bdelete!<CR>",                                     opt },
@@ -248,10 +245,11 @@ pluginKeys.comment = {
     bock = "gb",
   },
 }
+
+-- ctrl + / 替换原来的gcc
 G.map({
-  -- ctrl + / 替换原来的gcc
-  { "n", "<C-/>", "gcc", { noremap = false } },
-  { "v", "<C-/>", "gcc", { noremap = false } },
+  { "n", "<C-_>", "gcc", { noremap = false } },
+  { "v", "<C-_>", "gcc", { noremap = false } },
 })
 
 -- 自定义 toggleterm 3个不同类型的命令行窗口
@@ -272,29 +270,34 @@ end
 G.g.VM_maps = {
   ['Find Under'] = '<C-n>',
   ['Find Subword Under'] = '<C-n>',
-  ['Add Cursor Up'] = '<C-S-k>',
-  ['Add Cursor Down'] = '<C-S-j>',
-  ['Select All'] = '<C-S-n>'
+  ['Add Cursor Up'] = '<C-K>',
+  ['Add Cursor Down'] = '<C-J>',
+  ['Select All'] = '<C-N>'
 }
 
+
 -- substitute, 交换和替换插件, 寄存器中的值，将会替换到s位置, s{motion}
-G.keymap.set("n", "s", require('substitute').operator, { noremap = true })
-G.keymap.set("n", "ss", require('substitute').line, { noremap = true })
-G.keymap.set("n", "S", require('substitute').eol, { noremap = true })
--- 这个和surround插件冲突，所以不使用
--- vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
+pluginKeys.mapSubstitute = function(substitute)
+  G.keymap.set("n", "s", substitute.operator, { noremap = true })
+  G.keymap.set("n", "ss", substitute.line, { noremap = true })
+  G.keymap.set("n", "S", substitute.eol, { noremap = true })
+  -- 这个和surround插件冲突，所以不使用
+  -- vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
 
--- substitute range, 开启范围性替换，<leader>s{motion}
--- vim.keymap.set("n", "<leader>s", require('substitute.range').operator, { noremap = true })
--- vim.keymap.set("x", "<leader>s", require('substitute.range').visual, { noremap = true })
--- 直接对单词生效
--- vim.keymap.set("n", "<leader>ss", require('substitute.range').word, { noremap = true })
+  -- substitute range, 开启范围性替换，<leader>s{motion}
+  -- vim.keymap.set("n", "<leader>s", require('substitute.range').operator, { noremap = true })
+  -- vim.keymap.set("x", "<leader>s", require('substitute.range').visual, { noremap = true })
+  -- 直接对单词生效
+  -- vim.keymap.set("n", "<leader>ss", require('substitute.range').word, { noremap = true })
+end
 
--- substitute exchange, sx{motion} -> 移动到另外一个单词 sx{motion}
-G.keymap.set("n", "sx", require('substitute.exchange').operator, { noremap = true })
-G.keymap.set("n", "sxx", require('substitute.exchange').line, { noremap = true })
-G.keymap.set("x", "X", require('substitute.exchange').visual, { noremap = true })
-G.keymap.set("n", "sxc", require('substitute.exchange').cancel, { noremap = true })
+pluginKeys.mapSubstituteExchange = function(exchange)
+  -- substitute exchange, sx{motion} -> 移动到另外一个单词 sx{motion}
+  G.keymap.set("n", "sx", exchange.operator, { noremap = true })
+  G.keymap.set("n", "sxx", exchange.line, { noremap = true })
+  G.keymap.set("x", "X", exchange.visual, { noremap = true })
+  G.keymap.set("n", "sxc", exchange.cancel, { noremap = true })
+end
 
 -- leap瞬间移动插件
 -- 使用指南

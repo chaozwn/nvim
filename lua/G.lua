@@ -1,5 +1,4 @@
 local G = {}
-
 G.g = vim.g
 G.b = vim.b
 G.o = vim.o
