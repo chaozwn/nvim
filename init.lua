@@ -37,9 +37,6 @@ require('plugin-config.comment')
 -- 包含符号快速替换
 require("plugin-config.surround")
 
--- 括号自动补全
-require("plugin-config.nvim-autopairs")
-
 -- 终端插件
 require("plugin-config.toggleterm")
 

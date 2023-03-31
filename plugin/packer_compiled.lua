@@ -139,16 +139,6 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nord.nvim",
     url = "https://github.com/shaunsingh/nord.nvim"
   },
-  ["nvim-autopairs"] = {
-    loaded = true,
-    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
-    url = "https://github.com/windwp/nvim-autopairs"
-  },
-  ["nvim-cmp"] = {
-    loaded = true,
-    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-cmp",
-    url = "https://github.com/hrsh7th/nvim-cmp"
-  },
   ["nvim-surround"] = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/nvim-surround",

@@ -108,7 +108,7 @@ G.map({
   { "n", "<A-h>",     "<C-w>h",                   opt },
   { "n", "<A-j>",     "<C-w>j",                   opt },
   { "n", "<A-k>",     "<C-w>k",                   opt },
-  { "n", "<A-l>",    "<C-w>l",                   opt },
+  { "n", "<A-l>",     "<C-w>l",                   opt },
   -- <leader> +jhjkl 窗口之间跳转
   -- { "n", "<tab>h",    "<C-w>h",                   opt },
   -- { "n", "<tab>j",    "<C-w>j",                   opt },
@@ -156,9 +156,9 @@ local pluginKeys = {}
 
 -- 文件浏览树相关配置
 G.map({
-  { "n", "<A-m>",     ":NvimTreeToggle<CR>", opt },
-  { "n", "<leader>te", ":NvimTreeFocus<CR>", opt },
-  { "n", "<leader>tc", ":NvimTreeClose<CR>", opt },
+  { "n", "<A-m>",      ":NvimTreeToggle<CR>", opt },
+  { "n", "<leader>te", ":NvimTreeFocus<CR>",  opt },
+  { "n", "<leader>tc", ":NvimTreeClose<CR>",  opt },
 })
 pluginKeys.nvimTreeList = { -- 打开文件或文件夹
   { key = { "o", "<2-LeftMouse>" }, action = "edit" },
@@ -195,7 +195,7 @@ if system == 'Darwin' then
   G.map({
     -- 左右Tab切换
     { "n", "<S-tab>", ":BufferLineCyclePrev<CR>", opt },
-    { "n", "<tab>", ":BufferLineCycleNext<CR>", opt },
+    { "n", "<tab>",   ":BufferLineCycleNext<CR>", opt },
   })
 elseif system == 'window' then
   G.map({
@@ -346,14 +346,14 @@ G.keymap.set({ "x", "o", "n" }, "<leader>s", "<Plug>(leap-from-window)")
 
 -- todo comments
 pluginKeys.todoComments = function(todo_comments)
-  G.keymap.set("n", "]t", function ()
-   todo_comments.jump_next() 
+  G.keymap.set("n", "]t", function()
+    todo_comments.jump_next()
   end)
   G.keymap.set("n", "[t", function()
     todo_comments.jump_prev()
   end)
 end
-  -- Telescope,即搜索窗功能
+-- Telescope,即搜索窗功能
 G.map({
   { "n", "<leader>lc", ":TodoTelescope keywords=TODO,FIX,HACK,WARN,PERF,NOTE,TEST <CR>", opt },
   -- 指定搜索文件夹, :TodoTrouble cwd=~/projects/foobar

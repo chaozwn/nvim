@@ -1,24 +1,18 @@
 local G = require('G')
-
 G.opt.backup = false
 G.opt.writebackup = false
 G.opt.updatetime = 300
 G.opt.signcolumn = "yes"
+local opts = { silent = true, nowait = true }
 
--- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-G.api.nvim_create_augroup("CocGroup", {})
-G.api.nvim_create_autocmd("CursorHold", {
-  group = "CocGroup",
-  command = "silent call CocActionAsync('highlight')",
-  desc = "Highlight symbol under cursor on CursorHold"
-})
+vim.api.nvim_create_augroup("CocGroup", {})
 
 -- Update signature help on jump placeholder
 G.api.nvim_create_autocmd("User", {
-    group = "CocGroup",
-    pattern = "CocJumpPlaceholder",
-    command = "call CocActionAsync('showSignatureHelp')",
-    desc = "Update signature help on jump placeholder"
+  group = "CocGroup",
+  pattern = "CocJumpPlaceholder",
+  command = "call CocActionAsync('showSignatureHelp')",
+  desc = "Update signature help on jump placeholder"
 })
 
 -- 显示Doc
@@ -37,54 +31,67 @@ function config()
   G.g.coc_global_extensions = {
     'coc-marketplace',
     '@yaegassy/coc-volar',
+    'coc-emmet',
     'coc-tsserver',
     'coc-json',
-    'coc-html', 'coc-css',
+    'coc-html',
+    'coc-css',
     'coc-clangd',
     'coc-go',
     'coc-sumneko-lua',
     'coc-vimlsp',
-    'coc-sh', 'coc-db',
+    'coc-sh',
+    'coc-db',
     'coc-pyright',
-    'coc-toml', 'coc-solidity',
+    'coc-toml',
+    'coc-solidity',
     'coc-prettier',
-    'coc-snippets', 'coc-pairs', 'coc-word',
+    'coc-snippets',
+    'coc-pairs',
+    'coc-word',
     'coc-translator',
     'coc-git',
+    'coc-yank'
   }
   G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
   G.cmd("hi! link CocPum Pmenu")
   G.cmd("hi! link CocMenuSel PmenuSel")
   G.map({
     -- 重命名
-    { 'n', '<leader>lr', '<Plug>(coc-rename)',               { silent = true } },
+    { 'n', '<leader>lr', '<Plug>{coc-rename}',                 { silent = true } },
     -- 查看函数定义
-    { 'n', 'gd',         '<Plug>(coc-definition)',           { silent = true } },
-    { 'n', 'gt',         '<Plug>(coc-type-definition)',      { silent = true } },
-    { 'n', 'gi',         '<Plug>(coc-implementation)',       { silent = true } },
-    { 'n', 'gr',         '<Plug>(coc-references)',           { silent = true } },
+    { 'n', 'gd',         '<Plug>{coc-definition}',             { silent = true } },
+    { 'n', 'gt',         '<Plug>(coc-type-definition)',        { silent = true } },
+    { 'n', 'gi',         '<Plug>{coc-implementation}',         { silent = true } },
+    { 'n', 'gr',         '<Plug>(coc-references)',             { silent = true } },
     -- 选定整个function
-    { 'x', 'if',         '<Plug>(coc-funcobj-i)',            { silent = true } },
-    { 'o', 'if',         '<Plug>(coc-funcobj-i)',            { silent = true } },
-    { 'x', 'af',         '<Plug>(coc-funcobj-a)',            { silent = true } },
-    { 'o', 'af',         '<Plug>(coc-funcobj-a)',            { silent = true } },
+    { 'x', 'if',         '<Plug>(coc-funcobj-i)',              { silent = true } },
+    { 'o', 'if',         '<Plug>(coc-funcobj-i)',              { silent = true } },
+    { 'x', 'af',         '<Plug>(coc-funcobj-a)',              { silent = true } },
+    { 'o', 'af',         '<Plug>(coc-funcobj-a)',              { silent = true } },
     -- 选定整个class
-    { 'x', 'ic',         '<Plug>(coc-classobj-i)',           { silent = true } },
-    { 'o', 'ic',         '<Plug>(coc-classobj-i)',           { silent = true } },
-    { 'x', 'ac',         '<Plug>(coc-classobj-a)',           { silent = true } },
-    { 'o', 'ac',         '<Plug>(coc-classobj-a)',           { silent = true } },
-    { 'n', '<leader>lj', '<CMD>lua _G.show_docs()<CR>',      { silent = true } },
-    { 'n', 'gp',         '<Plug>(coc-diagnostic-prev)',      { silent = true } },
-    { 'n', 'gn',         '<Plug>(coc-diagnostic-next)',      { silent = true } },
+    { 'x', 'ic',         '<Plug>(coc-classobj-i)',             { silent = true } },
+    { 'o', 'ic',         '<Plug>(coc-classobj-i)',             { silent = true } },
+    { 'x', 'ac',         '<Plug>(coc-classobj-a)',             { silent = true } },
+    { 'o', 'ac',         '<Plug>(coc-classobj-a)',             { silent = true } },
+    { 'n', '<leader>lj', '<CMD>lua _G.show_docs()<CR>',        { silent = true } },
+    { 'n', 'gp',         '<Plug>(coc-diagnostic-prev)',        { silent = true } },
+    { 'n', 'gn',         '<Plug>(coc-diagnostic-next)',        { silent = true } },
     -- 格式化代码
     -- { 'n', '<leader>fm', '<Plug>(coc-format-selected)<CR>',      {silent = true } },
-    { 'n', '<leader>fm', ":call CocAction('format')<CR>",      {silent = true } },
-    { 'x', '<leader>fm', '<Plug>(coc-format-selected)<CR>',      { silent = true } },
+    { 'n', '<leader>fm', ":call CocAction('format')<CR>",      { silent = true } },
+    { 'x', '<leader>fm', '<Plug>(coc-format-selected)<CR>',    { silent = true } },
     -- 触发snippets
-    { 'i', '<C-j>',      '<Plug>(coc-snippets-expand-jump)', {} },
-    -- 对选中的代码进行操作
-    { 'n', '<leader>la', '<Plug>(coc-codeaction-selected)',  { silent = true } },
-    { 'x', '<leader>la', '<Plug>(coc-codeaction-selected)',  { silent = true } },
+    { 'i', '<C-j>',      '<Plug>(coc-snippets-expand-jump)',   {} },
+    -- Apply codeAction to the selected region
+    { 'n', '<leader>la', '<Plug>{coc-codeaction-selected}',    { silent = true } },
+    { 'x', '<leader>la', '<Plug>{coc-codeaction-selected}',    { silent = true } },
+    -- Remap keys for applying codeActions to the current buffer
+    { "n", "<leader>ac", "<Plug>{coc-codeaction}",             opts },
+    -- Apply the most preferred quickfix action on the current line.
+    { "n", "<leader>li", "<Plug>(coc-fix-current)",            opts },
+    -- 启动复制框
+    { "n", "<space>ly",  ":<C-u>CocList -A --normal yank<cr>", { silent = true } },
     -- 刷新提示框
     { 'i', '<C-space>',
       "coc#refresh()",

@@ -1,16 +1,12 @@
 {
   "coc.preferences.extensionUpdateCheck": "daily",
-  // 自动控制焦点在第一行
   "suggest.noselect": false,
   "suggest.enablePreselect": true,
   "suggest.autoTrigger": "always",
   "suggest.timeout": 5000,
-  "suggest.enablePreview": true,
-  "suggest.floatEnable": true,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
-  "suggest.triggerCompletionWait": 100,
-  "suggest.echodocSupport": true,
+  "suggest.triggerCompletionWait": 50,
   "suggest.completionItemKindLabels": {
     "class": "\uf0e8",
     "color": "\ue22b",
@@ -49,28 +45,28 @@
   "diagnostic.virtualText": true,
   "codeLens.enable": true,
   "list.previewHighlightGroup": "Statement",
-  // 保存时调整格式
-  //"coc.preferences.formatOnSaveFiletypes": [
-  //"javascript",
-  //"typescript",
-  //"html",
-  //"css",
-  //"json",
-  //"java",
-  //"python",
-  //"vue",
-  //"c",
-  //"cpp",
-  //"markdown",
-  //"lua",
-  //"bash"
-  //],
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "git.enableGutters": true,
+  "git.floatConfig": {
+    "border": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true
+  },
+  "signature.floatConfig": {
+    "border": true
+  },
+  "hover.floatConfig": {
+    "border": true
+  },
+  "suggest.floatConfig": {
+    "border": true
+  },
+  "coc.preferences.formatOnSave": true,
   "snippets.ultisnips.directories": [
     "$HOME/.vim/plugged/vim-snippets/UltiSnips"
   ],
-  "coc.preferences.snippetStatusText": "Ⓢ ",
   "python.formatting.provider": "black",
-  "java.configuration.runtimes": [],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
@@ -78,5 +74,25 @@
       "filetypes": ["sh"]
     }
   },
-  "yaml.format.enable": true
+  "tsserver.locale": "zh-CN",
+  // emmet插件的配置
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+  "emmet.excludeLanguages": ["markdown"],
+  "colors.enable": false,
+  // coc-pairs配置
+  "pairs.disableLanguages": [],
+  "pairs.enableCharacters": ["(", "[", "{", "<", "'", "\"", "`"],
+  "pairs.enableBackspace": true,
+  // coc-yank配置
+  "yank.highlight.enable": true,
+  "yank.highlight.duration": 500,
+  "yank.list.maxsize": 300,
+  "yank.enableCompletion": true,
+  "yank.priority": 90,
+  "yank.limit": 20
 }
