@@ -15,11 +15,11 @@ autocmd("BufEnter", {
   end,
 })
 
-local system = require("utils.system")
+local system = vim.loop.os_uname().sysname
 
 if system == 'Linux' then
 
-elseif system == 'MacOS' then 
+elseif system == 'Darwin' then 
   -- 自动切换输入法，需要安装 im-select
   -- https://github.com/daipeihust/im-select
   autocmd("InsertLeave", {
@@ -80,4 +80,15 @@ autocmd("BufEnter", {
       - "o" -- O and o, don't continue comments
       + "r" -- But do continue when pressing enter.
   end,
+})
+
+-- 重新打开缓冲区恢复光标位置
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*",
+	callback = function()
+		if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
+			vim.fn.setpos(".", vim.fn.getpos("'\""))
+			vim.cmd("silent! foldopen")
+		end
+	end,
 })

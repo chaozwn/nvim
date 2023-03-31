@@ -1,3 +1,4 @@
+-- TODO: 准备换掉这个换成coc_autopair
 -- https://github.com/windwp/nvim-autopairs
 local status, autopairs = pcall(require, "nvim-autopairs")
 if not status then

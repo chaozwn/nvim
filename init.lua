@@ -44,7 +44,7 @@ require("plugin-config.nvim-autopairs")
 require("plugin-config.toggleterm")
 
 -- 自动保存插件
-require("plugin-config.autosave")
+-- require("plugin-config.autosave")
 
 -- 替换和交换插件
 require("plugin-config.substitute")
@@ -56,3 +56,6 @@ require('plugin-config.flit')
 
 -- coc插件
 require("plugin-config.coc")
+
+-- todo-comment插件
+require("plugin-config.todo-comments")

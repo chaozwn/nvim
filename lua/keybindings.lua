@@ -10,6 +10,7 @@
 -- 可以在普通模式和可视模式下输入:, 进入命令行模式
 local G = require('G')
 
+local system = vim.loop.os_uname().sysname
 -- 设置leader key为空字符串
 G.g.mapleader = ' '
 G.g.maplocalleader = ' '
@@ -107,12 +108,12 @@ G.map({
   { "n", "<A-h>",     "<C-w>h",                   opt },
   { "n", "<A-j>",     "<C-w>j",                   opt },
   { "n", "<A-k>",     "<C-w>k",                   opt },
-  { "n", "<A-l>",     "<C-w>l",                   opt },
-  -- <leader> + hjkl 窗口之间跳转
-  { "n", "<leader>h", "<C-w>h",                   opt },
-  { "n", "<leader>j", "<C-w>j",                   opt },
-  { "n", "<leader>k", "<C-w>k",                   opt },
-  { "n", "<leader>l", "<C-w>l",                   opt },
+  { "n", "<A-l>",    "<C-w>l",                   opt },
+  -- <leader> +jhjkl 窗口之间跳转
+  -- { "n", "<tab>h",    "<C-w>h",                   opt },
+  -- { "n", "<tab>j",    "<C-w>j",                   opt },
+  -- { "n", "<tab>k",    "<C-w>k",                   opt },
+  -- { "n", "<tab>l",    "<C-w>l",                   opt },
   -- 左右比例控制
   { "n", "<C-Left>",  ":vertical resize -2<CR>",  opt },
   { "n", "<C-Right>", ":vertical resize +2<CR>",  opt },
@@ -156,7 +157,8 @@ local pluginKeys = {}
 -- 文件浏览树相关配置
 G.map({
   { "n", "<A-m>",     ":NvimTreeToggle<CR>", opt },
-  { "n", "<leader>m", ":NvimTreeToggle<CR>", opt },
+  { "n", "<leader>te", ":NvimTreeFocus<CR>", opt },
+  { "n", "<leader>tc", ":NvimTreeClose<CR>", opt },
 })
 pluginKeys.nvimTreeList = { -- 打开文件或文件夹
   { key = { "o", "<2-LeftMouse>" }, action = "edit" },
@@ -189,10 +191,21 @@ pluginKeys.nvimTreeList = { -- 打开文件或文件夹
 }
 
 -- bufferline, Tabs标签页相关配置
+if system == 'Darwin' then
+  G.map({
+    -- 左右Tab切换
+    { "n", "<S-tab>", ":BufferLineCyclePrev<CR>", opt },
+    { "n", "<tab>", ":BufferLineCycleNext<CR>", opt },
+  })
+elseif system == 'window' then
+  G.map({
+    -- 左右Tab切换
+    { "n", "<C-H>", ":BufferLineCyclePrev<CR>", opt },
+    { "n", "<C-L>", ":BufferLineCycleNext<CR>", opt },
+  })
+end
+
 G.map({
-  -- 左右Tab切换
-  { "n", "<C-H>",    ":BufferLineCyclePrev<CR>",                          opt },
-  { "n", "<C-L>",    ":BufferLineCycleNext<CR>",                          opt },
   -- "moll/vim-bbye" 关闭当前 buffer
   { "n", "<leader>bc", ":Bdelete!<CR>",                                     opt },
   { "n", "<C-w>",      ":Bdelete!<CR>",                                     opt },
@@ -246,11 +259,20 @@ pluginKeys.comment = {
   },
 }
 
--- ctrl + / 替换原来的gcc
-G.map({
-  { "n", "<C-_>", "gcc", { noremap = false } },
-  { "v", "<C-_>", "gcc", { noremap = false } },
-})
+
+if system == 'Darwin' then
+  -- ctrl + / 替换原来的gcc
+  G.map({
+    { "n", "<C-/>", "gcc", { noremap = false } },
+    { "v", "<C-/>", "gcc", { noremap = false } },
+  })
+elseif system == 'window' then
+  -- ctrl + / 替换原来的gcc
+  G.map({
+    { "n", "<C-_>", "gcc", { noremap = false } },
+    { "v", "<C-_>", "gcc", { noremap = false } },
+  })
+end
 
 -- 自定义 toggleterm 3个不同类型的命令行窗口
 -- <leader>ta 浮动
@@ -270,11 +292,20 @@ end
 G.g.VM_maps = {
   ['Find Under'] = '<C-n>',
   ['Find Subword Under'] = '<C-n>',
-  ['Add Cursor Up'] = '<C-K>',
-  ['Add Cursor Down'] = '<C-J>',
-  ['Select All'] = '<C-N>'
 }
-
+if system == 'Darwin' then
+  G.g.VM_maps = {
+    ['Add Cursor Up'] = '<C-S-k>',
+    ['Add Cursor Down'] = '<C-S-j>',
+    ['Select All'] = '<C-S-n>'
+  }
+elseif system == 'window' then
+  G.g.VM_maps = {
+    ['Add Cursor Up'] = '<C-K>',
+    ['Add Cursor Down'] = '<C-J>',
+    ['Select All'] = '<C-N>'
+  }
+end
 
 -- substitute, 交换和替换插件, 寄存器中的值，将会替换到s位置, s{motion}
 pluginKeys.mapSubstitute = function(substitute)
@@ -312,5 +343,20 @@ end
 G.keymap.set({ "x", "o", "n" }, ";", "<Plug>(leap-forward-to)")
 G.keymap.set({ "x", "o", "n" }, ",", "<Plug>(leap-backward-to)")
 G.keymap.set({ "x", "o", "n" }, "<leader>s", "<Plug>(leap-from-window)")
+
+-- todo comments
+pluginKeys.todoComments = function(todo_comments)
+  G.keymap.set("n", "]t", function ()
+   todo_comments.jump_next() 
+  end)
+  G.keymap.set("n", "[t", function()
+    todo_comments.jump_prev()
+  end)
+end
+  -- Telescope,即搜索窗功能
+G.map({
+  { "n", "<leader>lc", ":TodoTelescope keywords=TODO,FIX,HACK,WARN,PERF,NOTE,TEST <CR>", opt },
+  -- 指定搜索文件夹, :TodoTrouble cwd=~/projects/foobar
+})
 
 return pluginKeys

@@ -85,14 +85,20 @@ packer.startup({
     -- telescope
     use({
       "nvim-telescope/telescope.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-telescope/telescope-ui-select.nvim" },
+        { "ahmedkhalf/project.nvim" },
+        {
+          'nvim-telescope/telescope-fzf-native.nvim',
+          run =
+          'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+        },
+        { "nvim-telescope/telescope-symbols.nvim" },
+        { 'GustavoKatel/telescope-asynctasks.nvim' },
+        { "LinArcX/telescope-env.nvim" }
+      },
     })
-    -- telescope extensions
-    use("LinArcX/telescope-env.nvim")
-    use("nvim-telescope/telescope-ui-select.nvim")
-    -- project
-    use("ahmedkhalf/project.nvim")
-
 
     ------------------------ 启动界面 -------------------------------------------
     -- dashboard-nvim,功能实现关联ahmedkhalf/project.nvim
@@ -107,8 +113,13 @@ packer.startup({
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
+      requires = {
+        "p00f/nvim-ts-rainbow",
+        "windwp/nvim-ts-autotag",
+        "yioneko/nvim-yati",
+        'nvim-treesitter/nvim-treesitter-context'
+      },
     })
-    use("p00f/nvim-ts-rainbow")
 
     ----------------------- 括号自动补充 --------------------------------------------
     -- nvim-autopairs
@@ -136,7 +147,7 @@ packer.startup({
     use({ "mg979/vim-visual-multi", branch = 'master' })
 
     ----------------------- 自动保存 --------------------------------------
-    use("Pocco81/auto-save.nvim")
+    -- use("Pocco81/auto-save.nvim")
 
     ----------------------- 替换和交换插件 --------------------------------
     use("gbprod/substitute.nvim")
@@ -147,6 +158,9 @@ packer.startup({
 
     ----------------------- 安装coc ---------------------------------------
     use({ "neoclide/coc.nvim", branch = 'release' })
+
+    ----------------------- Todo Comment ----------------------------------
+    use({ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" })
 
     if paccker_bootstrap then
       packer.sync()

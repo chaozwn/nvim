@@ -1,7 +1,8 @@
 {
   "coc.preferences.extensionUpdateCheck": "daily",
-  "suggest.noselect": true,
-  "suggest.enablePreselect": false,
+  // 自动控制焦点在第一行
+  "suggest.noselect": false,
+  "suggest.enablePreselect": true,
   "suggest.autoTrigger": "always",
   "suggest.timeout": 5000,
   "suggest.enablePreview": true,

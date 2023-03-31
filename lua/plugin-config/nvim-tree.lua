@@ -8,15 +8,27 @@ end
 
 -- 列表操作快捷键
 local list_keys = require("keybindings").nvimTreeList
+local system = vim.loop.os_uname().sysname
+
+local system_open_cmd = 'open'
+
+if system == 'Darwin' then
+  system_open_cmd = 'open'
+elseif system == 'Linux' then
+  system_open_cmd = 'wsl_open'
+else
+  system_open_cmd = 'start'
+end
 
 nvim_tree.setup({
   -- 完全禁止内置netrw
   disable_netrw = true,
   -- 不显示 git 状态图标
   git = {
-    enable = false,
+    enable = true,
   },
   -- project plugin 需要这样设置
+  sync_root_with_cwd = true,
   update_cwd = true,
   update_focused_file = {
     enable = true,
@@ -58,9 +70,6 @@ nvim_tree.setup({
   -- wsl install -g wsl-open
   -- https://github.com/4U6U57/wsl-open/
   system_open = {
-    -- mac
-    cmd = "open",
-    -- windows
-    -- cmd = "wsl-open",
+    cmd = system_open_cmd,
   },
 })

@@ -1,9 +1,9 @@
 -- vim.g.{name}: global,全局变量
 -- vim.b.{name}: buffer,缓冲区变量
 -- vim.w.{name}: window,窗口变量
--- vim.o.{name}: 全局属性,我们可以利用options来记忆 
--- vim.bo.{option}: 缓冲区属性,我们可以利用buffer-option来记忆 
--- vim.wo.{option}: 窗口属性,我们可以利用window-option来记忆 
+-- vim.o.{name}: 全局属性,我们可以利用options来记忆
+-- vim.bo.{option}: 缓冲区属性,我们可以利用buffer-option来记忆
+-- vim.wo.{option}: 窗口属性,我们可以利用window-option来记忆
 -- utf-8
 vim.g.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
@@ -61,7 +61,7 @@ vim.o.cmdheight = 1
 vim.o.autoread = true
 vim.bo.autoread = true
 
--- 允许换行 
+-- 允许换行
 vim.wo.wrap = true
 
 -- 设置右侧底部显示输入命令
@@ -84,7 +84,7 @@ vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
 
--- 设置缓冲区更新时间 
+-- 设置缓冲区更新时间
 vim.o.updatetime = 300
 
 -- 设置timeoutlen 为等待键盘快捷键连击时间500毫秒,当你组合按键的时候生效
