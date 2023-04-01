@@ -21,3 +21,9 @@ sudo npm i -g neovim yarn
 ```
 https://www.cnblogs.com/tuilk/p/16421831.html
 ```
+
+### 安装 lazygit
+
+```
+brew install lazygit
+```

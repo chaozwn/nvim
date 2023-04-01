@@ -156,9 +156,11 @@ local pluginKeys = {}
 
 -- 文件浏览树相关配置
 G.map({
-  { "n", "<A-m>",      ":NvimTreeToggle<CR>", opt },
-  { "n", "<leader>te", ":NvimTreeFocus<CR>",  opt },
-  { "n", "<leader>tc", ":NvimTreeClose<CR>",  opt },
+  { "n", "<A-m>",      ":NvimTreeToggle<CR>",   opt },
+  { "n", "<leader>te", ":NvimTreeFocus<CR>",    opt },
+  { "n", "<leader>tc", ":NvimTreeClose<CR>",    opt },
+  -- 在文件树中打开文件
+  { "n", "<leader>to", ":NvimTreeFindFile<CR>", opt },
 })
 pluginKeys.nvimTreeList = { -- 打开文件或文件夹
   { key = { "o", "<2-LeftMouse>" }, action = "edit" },

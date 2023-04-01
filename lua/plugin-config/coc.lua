@@ -141,14 +141,14 @@ function config()
       noremap = true
     } },
     -- 列出所有的错误
-    { 'n', '<c-e>', ":CocList --auto-preview diagnostics<cr>", { silent = true } },
+    { 'n', '<leader>le', ":CocList --auto-preview diagnostics<cr>", { silent = true } },
     -- 翻译所在单词
-    { 'n', 'mm',    "<Plug>(coc-translator-p)",                { silent = true } },
-    { 'v', 'mm',    "<Plug>(coc-translator-pv)",               { silent = true } },
+    { 'n', 'mm',         "<Plug>(coc-translator-p)",                { silent = true } },
+    { 'v', 'mm',         "<Plug>(coc-translator-pv)",               { silent = true } },
     -- 前往上一个git改动区域
-    { 'n', '(',     "<Plug>(coc-git-prevchunk)",               { silent = true } },
+    { 'n', '(',          "<Plug>(coc-git-prevchunk)",               { silent = true } },
     -- 前往下一个git改动区域
-    { 'n', ')',     "<Plug>(coc-git-nextchunk)",               { silent = true } },
+    { 'n', ')',          "<Plug>(coc-git-nextchunk)",               { silent = true } },
     { 'n', '<leader>lg',
       "get(b:, 'coc_git_blame', '') ==# 'Not committed yet' ? \"<Plug>(coc-git-chunkinfo)\" : \"<Plug>(coc-git-commit)\"",
       {

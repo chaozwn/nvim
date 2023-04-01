@@ -39,59 +39,6 @@ telescope.setup({
     },
     set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
   },
-  pickers = {
-    find_files = {
-      layout_strategy = "horizontal",
-      prompt_title = "   Find File",
-      layout_config = {
-        height = 0.95,
-        width = 0.95,
-        preview_cutoff = 80
-      },
-    },
-    keymaps = {
-      prompt_title = "   Keymaps",
-      theme = "dropdown",
-    },
-    current_buffer_fuzzy_find = {
-      prompt_title = " ﬘  Current Buffer",
-      theme = "ivy",
-    },
-    live_grep = {
-      prompt_title = "   Live Grep",
-      theme = "ivy",
-      previewer = true,
-    },
-    help_tags = {
-      prompt_title = "  Help Tags",
-      theme = "ivy",
-      layout_config = {
-        preview_cutoff = 0
-      },
-    },
-    oldfiles = {
-      prompt_title = "   Old Files",
-      theme = "ivy",
-    },
-    marks = {
-      prompt_title = "  Marks",
-      theme = "ivy",
-    },
-    buffers = {
-      prompt_title = " ﬘ Buffers",
-      theme = "ivy",
-      layout_config = {
-        preview_cutoff = 0,
-      }
-    },
-    diagnostics = {
-      theme = "ivy",
-      previewer = false,
-      layout_config = {
-        height = 0.3
-      }
-    },
-  },
   extensions = {
     project = {
       theme = "dropdown",
